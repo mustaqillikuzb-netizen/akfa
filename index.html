@@ -1,0 +1,2784 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKFA PLAST | Elektrik Muhandislik Testi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+:root {
+    --bg-void: #050811;
+    --surface-1: rgba(12, 18, 34, 0.88);
+    --surface-2: rgba(18, 27, 49, 0.78);
+    --surface-3: rgba(25, 37, 66, 0.92);
+    --line-soft: rgba(148, 163, 184, 0.16);
+    --line-bright: rgba(56, 189, 248, 0.45);
+    --cyan: #38bdf8;
+    --cyan-deep: #0284c7;
+    --amber: #f59e0b;
+    --amber-soft: #fde68a;
+    --emerald: #10b981;
+    --rose: #f43f5e;
+    --ink-1: #f8fafc;
+    --ink-2: #cbd5e1;
+    --ink-3: #94a3b8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg-void);
+    color: var(--ink-1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 22px 16px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Dinamik Sanoat Fon */
+.ambient-layer {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.mesh-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(105px);
+    opacity: 0.34;
+    animation: driftGlow 14s ease-in-out infinite alternate;
+}
+
+.mesh-a {
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle, #0284c7, transparent 70%);
+    top: -120px;
+    left: -100px;
+}
+
+.mesh-b {
+    width: 390px;
+    height: 390px;
+    background: radial-gradient(circle, #d97706, transparent 70%);
+    bottom: -130px;
+    right: -90px;
+    animation-delay: -5s;
+}
+
+.mesh-c {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, #059669, transparent 70%);
+    top: 40%;
+    left: 55%;
+    opacity: 0.18;
+    animation-delay: -9s;
+}
+
+@keyframes driftGlow {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(36px, -28px) scale(1.1); }
+}
+
+.dot-matrix {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(148, 163, 184, 0.16) 1px, transparent 1px);
+    background-size: 26px 26px;
+    mask-image: radial-gradient(circle at 50% 35%, #000 35%, transparent 88%);
+}
+
+.scan-beam {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(180deg, transparent, rgba(56, 189, 248, 0.04), transparent);
+    animation: scanMove 8s linear infinite;
+}
+
+@keyframes scanMove {
+    0% { top: -140px; }
+    100% { top: 100%; }
+}
+
+.shell-wrap {
+    width: 100%;
+    max-width: 740px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 18px;
+    border-radius: 18px;
+    background: rgba(12, 18, 34, 0.72);
+    border: 1px solid var(--line-soft);
+    backdrop-filter: blur(16px);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--ink-3);
+}
+
+.topbar-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ink-2);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--emerald);
+    box-shadow: 0 0 10px var(--emerald);
+    animation: pulseLive 2s infinite;
+}
+
+@keyframes pulseLive {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.55; transform: scale(0.85); }
+}
+
+.studio-card {
+    background: var(--surface-1);
+    backdrop-filter: blur(28px) saturate(155%);
+    -webkit-backdrop-filter: blur(28px) saturate(155%);
+    border: 1px solid var(--line-soft);
+    border-radius: 28px;
+    padding: 34px 30px;
+    box-shadow:
+        0 32px 80px rgba(0, 0, 0, 0.72),
+        0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+    position: relative;
+    overflow: hidden;
+}
+
+.top-rail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--cyan), var(--amber), var(--emerald), var(--cyan));
+    background-size: 250% 100%;
+    animation: railFlow 6s linear infinite;
+}
+
+@keyframes railFlow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 250% 50%; }
+}
+
+.hidden {
+    display: none !important;
+}
+
+.active-screen {
+    animation: panelReveal 0.42s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes panelReveal {
+    from { opacity: 0; transform: translateY(16px) scale(0.99); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ==========================================
+   TO'RTBURCHAK ANIMATSIYALI AKFA PLAST LOGO
+   (A harflari oq, KF harflari qora, PLAST qora)
+   ========================================== */
+.intro-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.akfa-rect-box {
+    position: relative;
+    padding: 4px;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 18px;
+    box-shadow: 0 14px 34px rgba(225, 29, 72, 0.32), 0 0 24px rgba(56, 189, 248, 0.22);
+    animation: logoHover 3.4s ease-in-out infinite alternate;
+}
+
+@keyframes logoHover {
+    0% { transform: translateY(0) scale(1); }
+    100% { transform: translateY(-4px) scale(1.025); }
+}
+
+.rect-border-glow {
+    position: absolute;
+    inset: -65%;
+    background: conic-gradient(
+        from 0deg,
+        #ffffff,
+        #ef4444,
+        #f59e0b,
+        #38bdf8,
+        #ffffff
+    );
+    animation: spinEdge 4.2s linear infinite;
+    z-index: 0;
+}
+
+@keyframes spinEdge {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.akfa-logo-inner {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(135deg, #e11d48 0%, #dc2626 55%, #b91c1c 100%);
+    border-radius: 13px;
+    padding: 14px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    letter-spacing: 1.5px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.akfa-word,
+.plast-word {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 27px;
+    font-weight: 700;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.letter-white {
+    color: #ffffff;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.letter-black,
+.plast-word {
+    color: #090d16;
+}
+
+/* ========================================== */
+
+.hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 13px;
+    border-radius: 999px;
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid rgba(245, 158, 11, 0.32);
+    color: var(--amber-soft);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    margin-bottom: 12px;
+}
+
+.hero-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(26px, 4.6vw, 34px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.18;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #ffffff 20%, #7dd3fc 70%, #fde68a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-desc {
+    max-width: 560px;
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink-3);
+    margin-bottom: 20px;
+}
+
+.kpi-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+}
+
+.kpi-chip {
+    padding: 12px 14px;
+    border-radius: 16px;
+    background: var(--surface-2);
+    border: 1px solid var(--line-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.kpi-chip strong {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    color: var(--ink-1);
+}
+
+.kpi-chip span {
+    font-size: 12px;
+    color: var(--ink-3);
+}
+
+.divider-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--line-soft), transparent);
+    margin: 24px 0;
+}
+
+.form-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.field-box label {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ink-2);
+    margin-bottom: 7px;
+}
+
+.field-control {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.field-ico {
+    position: absolute;
+    left: 15px;
+    width: 17px;
+    height: 17px;
+    color: var(--cyan);
+    pointer-events: none;
+}
+
+.field-control input {
+    width: 100%;
+    padding: 13.5px 15px 13.5px 42px;
+    border-radius: 15px;
+    border: 1px solid var(--line-soft);
+    background: rgba(4, 8, 18, 0.85);
+    color: var(--ink-1);
+    font-size: 14.5px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.field-control input:focus {
+    outline: none;
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.14);
+}
+
+.btn {
+    border: none;
+    border-radius: 15px;
+    padding: 14px 20px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    transition: transform 0.18s ease, box-shadow 0.22s ease, background 0.2s ease;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-launch {
+    width: 100%;
+    background: linear-gradient(135deg, var(--cyan-deep), var(--cyan));
+    color: #03111e;
+    font-weight: 800;
+    box-shadow: 0 12px 28px rgba(14, 165, 233, 0.32);
+}
+
+.btn-launch:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 34px rgba(56, 189, 248, 0.45);
+}
+
+.btn-emerald {
+    width: 100%;
+    background: linear-gradient(135deg, #059669, #34d399);
+    color: #021a12;
+    font-weight: 800;
+    box-shadow: 0 12px 30px rgba(16, 185, 129, 0.38);
+    animation: pulseSubmit 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes pulseSubmit {
+    0% { transform: translateY(0); box-shadow: 0 12px 28px rgba(16, 185, 129, 0.35); }
+    100% { transform: translateY(-2px); box-shadow: 0 18px 36px rgba(52, 211, 153, 0.55); }
+}
+
+.btn-danger-soft {
+    background: rgba(244, 63, 94, 0.12);
+    border: 1px solid rgba(244, 63, 94, 0.35);
+    color: #fda4af;
+}
+
+.btn-danger-soft:hover {
+    background: rgba(244, 63, 94, 0.22);
+    color: #fff;
+}
+
+/* Savollar Ekrani */
+.quiz-top-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.progress-readout {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.q-counter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--ink-1);
+}
+
+.q-pct-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 8px;
+    background: rgba(56, 189, 248, 0.14);
+    color: var(--cyan);
+}
+
+.answered-counter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-3);
+}
+
+.track-bar {
+    width: 100%;
+    height: 7px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 14px;
+}
+
+.track-fill {
+    height: 100%;
+    width: 5%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--cyan), var(--emerald));
+    transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Savollar belgilanish matritsasi (standart gear/sozlamalar yo'q) */
+.question-matrix {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 6px;
+    margin-bottom: 20px;
+}
+
+.matrix-cell {
+    height: 30px;
+    border-radius: 9px;
+    border: 1px solid var(--line-soft);
+    background: rgba(7, 12, 24, 0.7);
+    color: var(--ink-3);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.matrix-cell.is-current {
+    background: var(--cyan);
+    border-color: var(--cyan);
+    color: #03111e;
+    box-shadow: 0 0 14px rgba(56, 189, 248, 0.45);
+    transform: scale(1.06);
+}
+
+.matrix-cell.is-correct-ans {
+    background: rgba(16, 185, 129, 0.22);
+    border-color: #10b981;
+    color: #6ee7b7;
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.28);
+    animation: cellPop 0.32s ease;
+}
+
+.matrix-cell.is-wrong-ans {
+    background: rgba(244, 63, 94, 0.22);
+    border-color: #f43f5e;
+    color: #fda4af;
+    box-shadow: 0 0 12px rgba(244, 63, 94, 0.28);
+    animation: cellShake 0.32s ease;
+}
+
+@keyframes cellPop {
+    0% { transform: scale(0.82); }
+    65% { transform: scale(1.12); }
+    100% { transform: scale(1); }
+}
+
+@keyframes cellShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    75% { transform: translateX(3px); }
+}
+
+.card-enter {
+    animation: cardSlideForward 0.36s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes cardSlideForward {
+    from { opacity: 0; transform: translateX(22px) scale(0.99); }
+    to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+.prompt-card {
+    background: rgba(5, 9, 20, 0.78);
+    border: 1px solid var(--line-soft);
+    border-radius: 22px;
+    padding: 22px;
+    margin-bottom: 14px;
+}
+
+.prompt-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.cat-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 12px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ink-2);
+}
+
+.q-code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--cyan);
+    opacity: 0.75;
+}
+
+.prompt-body {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.62;
+    color: var(--ink-1);
+    white-space: pre-line;
+}
+
+.formula-plate {
+    margin-top: 14px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: rgba(56, 189, 248, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    border-left: 3px solid var(--cyan);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #bae6fd;
+    white-space: pre-line;
+}
+
+.choices-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.choice-tile {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: 16px;
+    background: var(--surface-2);
+    border: 1px solid var(--line-soft);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.choice-tile:not(.is-locked):hover {
+    background: var(--surface-3);
+    border-color: var(--line-bright);
+    transform: translateX(4px);
+}
+
+.choice-tile.is-locked {
+    cursor: default;
+}
+
+.choice-tile.mark-right {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.24), rgba(5, 150, 105, 0.14));
+    border-color: #10b981;
+    box-shadow: 0 0 26px rgba(16, 185, 129, 0.26);
+    animation: rightPulse 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.choice-tile.mark-wrong {
+    background: linear-gradient(135deg, rgba(244, 63, 94, 0.24), rgba(190, 18, 60, 0.14));
+    border-color: #f43f5e;
+    box-shadow: 0 0 26px rgba(244, 63, 94, 0.26);
+    animation: wrongWobble 0.38s ease;
+}
+
+@keyframes rightPulse {
+    0% { transform: scale(0.97); }
+    60% { transform: scale(1.015); }
+    100% { transform: scale(1); }
+}
+
+@keyframes wrongWobble {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    50% { transform: translateX(6px); }
+    80% { transform: translateX(-3px); }
+}
+
+.choice-key {
+    width: 34px;
+    height: 34px;
+    border-radius: 11px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--ink-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+.choice-tile.mark-right .choice-key {
+    background: #10b981;
+    border-color: #10b981;
+    color: #031911;
+}
+
+.choice-tile.mark-wrong .choice-key {
+    background: #f43f5e;
+    border-color: #f43f5e;
+    color: #ffffff;
+}
+
+.choice-copy {
+    flex: 1;
+    font-size: 14.5px;
+    line-height: 1.48;
+    color: var(--ink-1);
+}
+
+.choice-status-badge {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.5) rotate(-25deg);
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    flex-shrink: 0;
+}
+
+.choice-tile.mark-right .choice-status-badge {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    background: #10b981;
+    color: #021a12;
+    box-shadow: 0 0 14px rgba(16, 185, 129, 0.65);
+}
+
+.choice-tile.mark-wrong .choice-status-badge {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    background: #f43f5e;
+    color: #ffffff;
+    box-shadow: 0 0 14px rgba(244, 63, 94, 0.65);
+}
+
+/* Javob berilganda chiqadigan animatsion xulosa */
+.instant-verdict {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 14px 16px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    animation: verdictPopIn 0.32s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes verdictPopIn {
+    from { opacity: 0; transform: translateY(10px) scale(0.97); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.verdict-ok-anim {
+    background: rgba(16, 185, 129, 0.14);
+    border: 1px solid rgba(16, 185, 129, 0.45);
+    color: #a7f3d0;
+}
+
+.verdict-bad-anim {
+    background: rgba(244, 63, 94, 0.14);
+    border: 1px solid rgba(244, 63, 94, 0.45);
+    color: #fecdd3;
+}
+
+.verdict-sym {
+    width: 34px;
+    height: 34px;
+    border-radius: 11px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.verdict-ok-anim .verdict-sym {
+    background: #10b981;
+    color: #021a12;
+}
+
+.verdict-bad-anim .verdict-sym {
+    background: #f43f5e;
+    color: #ffffff;
+}
+
+.instant-verdict strong {
+    display: block;
+    font-size: 14.5px;
+    margin-bottom: 2px;
+}
+
+.instant-verdict p {
+    font-size: 13px;
+    opacity: 0.92;
+}
+
+.action-bar-single {
+    display: flex;
+    justify-content: stretch;
+}
+
+/* Natija Ekrani */
+.result-hero {
+    text-align: center;
+}
+
+.verdict-pill {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    margin-bottom: 12px;
+    background: rgba(56, 189, 248, 0.14);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    color: var(--cyan);
+}
+
+.verdict-high {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: rgba(16, 185, 129, 0.4);
+    color: #34d399;
+}
+
+.verdict-mid {
+    background: rgba(245, 158, 11, 0.15);
+    border-color: rgba(245, 158, 11, 0.4);
+    color: var(--amber-soft);
+}
+
+.verdict-low {
+    background: rgba(244, 63, 94, 0.15);
+    border-color: rgba(244, 63, 94, 0.4);
+    color: #fda4af;
+}
+
+.result-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(24px, 4vw, 30px);
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.result-contact {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-3);
+    margin-bottom: 18px;
+}
+
+.score-ring-box {
+    position: relative;
+    width: 176px;
+    height: 176px;
+    margin: 0 auto 22px;
+    animation: ringFloat 3s ease-in-out infinite alternate;
+}
+
+@keyframes ringFloat {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-5px); }
+}
+
+.ring-svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.ring-track {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.07);
+    stroke-width: 12;
+}
+
+.ring-value {
+    fill: none;
+    stroke: url(#ringGrad);
+    stroke-width: 12;
+    stroke-linecap: round;
+    filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.4));
+}
+
+.ring-readout {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ring-pct {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--ink-1);
+}
+
+.ring-meta {
+    font-size: 12.5px;
+    color: var(--ink-3);
+    font-weight: 600;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.metric-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 18px;
+    text-align: left;
+    background: var(--surface-2);
+    border: 1px solid var(--line-soft);
+}
+
+.metric-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.ok-card .metric-icon {
+    background: rgba(16, 185, 129, 0.16);
+    color: #34d399;
+}
+
+.bad-card .metric-icon {
+    background: rgba(244, 63, 94, 0.16);
+    color: #fb7185;
+}
+
+.metric-card strong {
+    display: block;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 17px;
+}
+
+.metric-card span {
+    font-size: 12px;
+    color: var(--ink-3);
+}
+
+.sync-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 13px 16px;
+    border-radius: 15px;
+    background: rgba(56, 189, 248, 0.1);
+    border: 1px solid rgba(56, 189, 248, 0.28);
+    color: #bae6fd;
+    font-size: 13.5px;
+    margin-bottom: 20px;
+}
+
+.sync-ok {
+    background: rgba(16, 185, 129, 0.14);
+    border-color: rgba(16, 185, 129, 0.36);
+    color: #a7f3d0;
+}
+
+.sync-warn {
+    background: rgba(245, 158, 11, 0.14);
+    border-color: rgba(245, 158, 11, 0.36);
+    color: var(--amber-soft);
+}
+
+.sync-err {
+    background: rgba(244, 63, 94, 0.14);
+    border-color: rgba(244, 63, 94, 0.36);
+    color: #fecdd3;
+}
+
+.mini-spin {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(56, 189, 248, 0.3);
+    border-top-color: var(--cyan);
+    border-radius: 50%;
+    animation: spinMini 0.8s linear infinite;
+}
+
+@keyframes spinMini {
+    to { transform: rotate(360deg); }
+}
+
+.mistakes-panel {
+    margin-bottom: 20px;
+    padding: 16px;
+    border-radius: 20px;
+    background: rgba(5, 9, 20, 0.65);
+    border: 1px solid var(--line-soft);
+}
+
+.mistakes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.mistakes-header h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    color: var(--ink-1);
+}
+
+.mistakes-count-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(244, 63, 94, 0.16);
+    border: 1px solid rgba(244, 63, 94, 0.38);
+    color: #fda4af;
+}
+
+.review-stream {
+    max-height: 310px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-right: 4px;
+}
+
+.rev-card {
+    padding: 13px 15px;
+    border-radius: 15px;
+    background: rgba(12, 18, 34, 0.92);
+    border: 1px solid var(--line-soft);
+    border-left-width: 4px;
+    font-size: 13px;
+}
+
+.rev-bad {
+    border-left-color: var(--rose);
+}
+
+.rev-pop {
+    animation: revCardIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes revCardIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.rev-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink-3);
+    margin-bottom: 5px;
+}
+
+.rev-bad .rev-badge {
+    color: #fb7185;
+}
+
+.rev-title {
+    color: var(--ink-1);
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.rev-detail {
+    color: var(--ink-3);
+    line-height: 1.55;
+}
+
+.bad-txt {
+    color: #fb7185;
+}
+
+.good-txt {
+    color: #34d399;
+}
+
+.perfect-card {
+    padding: 16px;
+    border-radius: 15px;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    color: #a7f3d0;
+    text-align: center;
+}
+
+.perfect-card strong {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+.perfect-card p {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.result-footer-btns {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 12px;
+}
+
+@media (max-width: 580px) {
+    .studio-card {
+        padding: 24px 18px;
+        border-radius: 22px;
+    }
+    .form-grid,
+    .metrics-grid,
+    .result-footer-btns {
+        grid-template-columns: 1fr;
+    }
+    .question-matrix {
+        grid-template-columns: repeat(5, 1fr);
+    }
+    .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+}
+
+
+/* Elektr/Muhandislik Orqa Fon Animatsiyalari */
+.circuit-waves {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.28;
+}
+
+.wave-path {
+    fill: none;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-dasharray: 280 920;
+    animation: waveFlow 11s linear infinite;
+}
+
+.wave-1 {
+    stroke: rgba(56, 189, 248, 0.55);
+    animation-duration: 12s;
+}
+
+.wave-2 {
+    stroke: rgba(245, 158, 11, 0.45);
+    animation-duration: 16s;
+    animation-direction: reverse;
+}
+
+.wave-3 {
+    stroke: rgba(16, 185, 129, 0.42);
+    animation-duration: 20s;
+}
+
+@keyframes waveFlow {
+    0% { stroke-dashoffset: 1200; }
+    100% { stroke-dashoffset: 0; }
+}
+
+.orbit-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px dashed rgba(56, 189, 248, 0.16);
+    pointer-events: none;
+}
+
+.orbit-1 {
+    width: 560px;
+    height: 560px;
+    top: -180px;
+    right: -180px;
+    animation: slowSpin 38s linear infinite;
+}
+
+.orbit-2 {
+    width: 420px;
+    height: 420px;
+    bottom: -150px;
+    left: -140px;
+    border-color: rgba(245, 158, 11, 0.14);
+    animation: slowSpin 28s linear infinite reverse;
+}
+
+@keyframes slowSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.particle-field {
+    position: absolute;
+    inset: 0;
+}
+
+.bg-spark {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--cyan);
+    box-shadow: 0 0 10px var(--cyan);
+    opacity: 0;
+    animation: sparkRise var(--dur, 7s) ease-in-out var(--delay, 0s) infinite;
+}
+
+@keyframes sparkRise {
+    0% { transform: translateY(24px) scale(0.5); opacity: 0; }
+    25% { opacity: 0.85; }
+    80% { opacity: 0.4; }
+    100% { transform: translateY(-48px) scale(1.2); opacity: 0; }
+}
+
+/* Variantlar Bosilish Animatsiyasi (Ripple + Sheen + 3D Press) */
+.choice-tile {
+    position: relative;
+    overflow: hidden;
+}
+
+.choice-tile::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        115deg,
+        transparent 20%,
+        rgba(255, 255, 255, 0.09) 50%,
+        transparent 80%
+    );
+    transform: translateX(-120%);
+    transition: transform 0.55s ease;
+    pointer-events: none;
+}
+
+.choice-tile:not(.is-locked):hover::before {
+    transform: translateX(120%);
+}
+
+.choice-tile:not(.is-locked):active {
+    transform: scale(0.975) translateX(2px);
+    box-shadow: 0 6px 18px rgba(56, 189, 248, 0.22);
+}
+
+.choice-tile.is-pressed {
+    transform: scale(0.97);
+}
+
+.click-ripple {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    margin-left: -12px;
+    margin-top: -12px;
+    border-radius: 50%;
+    background: rgba(56, 189, 248, 0.36);
+    pointer-events: none;
+    transform: scale(0);
+    animation: rippleBurst 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    z-index: 2;
+}
+
+@keyframes rippleBurst {
+    0% { transform: scale(0.2); opacity: 0.9; }
+    100% { transform: scale(14); opacity: 0; }
+}
+
+
+/* UZ / RU Til Almashtirgich */
+.lang-switcher {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px;
+    border-radius: 11px;
+    background: rgba(5, 9, 20, 0.9);
+    border: 1px solid var(--line-soft);
+    gap: 2px;
+}
+
+.lang-btn {
+    border: none;
+    background: transparent;
+    color: var(--ink-3);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 9px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 0.4px;
+}
+
+.lang-btn:hover {
+    color: var(--ink-1);
+}
+
+.lang-btn.is-active {
+    background: linear-gradient(135deg, var(--cyan-deep), var(--cyan));
+    color: #03111e;
+    box-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+}
+
+</style>
+</head>
+<body>
+    <div class="ambient-layer">
+        <div class="mesh-glow mesh-a"></div>
+        <div class="mesh-glow mesh-b"></div>
+        <div class="mesh-glow mesh-c"></div>
+        <div class="orbit-ring orbit-1"></div>
+        <div class="orbit-ring orbit-2"></div>
+        <svg class="circuit-waves" viewBox="0 0 1200 700" preserveAspectRatio="none">
+            <path class="wave-path wave-1" d="M -60 150 Q 240 60, 540 165 T 1260 140" />
+            <path class="wave-path wave-2" d="M -60 360 Q 320 470, 640 340 T 1260 380" />
+            <path class="wave-path wave-3" d="M -60 560 Q 280 460, 620 575 T 1260 530" />
+        </svg>
+        <div class="particle-field" id="bg-particles"></div>
+        <div class="dot-matrix"></div>
+        <div class="scan-beam"></div>
+    </div>
+
+    <div class="shell-wrap">
+        <header class="topbar">
+            <div class="topbar-brand">
+                <span class="pulse-dot"></span>
+                <span id="topbar-brand-text">INDUSTRIAL ENGINEERING ASSESSMENT</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                <div class="topbar-spec" id="topbar-mode">20 SAVOL • TEXNIK ATTESTATSIYA</div>
+                <div class="lang-switcher" role="group" aria-label="Language switcher">
+                    <button type="button" class="lang-btn is-active" id="btn-lang-uz" onclick="window.setLanguage('uz')">UZ</button>
+                    <button type="button" class="lang-btn" id="btn-lang-ru" onclick="window.setLanguage('ru')">RU</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="studio-card">
+            <div class="top-rail"></div>
+
+            <!-- 1. KIRISH EKRANI -->
+            <section id="screen-intro" class="screen active-screen">
+                <div class="intro-top">
+                    <div class="akfa-rect-box">
+                        <div class="rect-border-glow"></div>
+                        <div class="akfa-logo-inner">
+                            <span class="akfa-word">
+                                <span class="letter-white">A</span><span class="letter-black">KF</span><span class="letter-white">A</span>
+                            </span>
+                            <span class="plast-word">PLAST</span>
+                        </div>
+                    </div>
+
+                    <div class="hero-tag" id="hero-tag-box">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                        <span id="hero-dept-text">ELEKTR VA AVTOMATIKA BO'LIMI</span>
+                    </div>
+
+                    <h1 class="hero-title" id="hero-title-text">Elektrik Muhandislik Testi</h1>
+                    <p class="hero-desc" id="hero-desc-text">
+                        Har bir javob darhol tekshiriladi: to'g'ri bo'lsa yashil belgi, noto'g'ri bo'lsa qizil belgi bilan ko'rsatiladi va keyingi savolga o'tiladi. Yakunda batafsil hisobot chiqadi.
+                    </p>
+
+                    <div class="kpi-strip">
+                        <div class="kpi-chip">
+                            <strong>20</strong>
+                            <span id="kpi-q-label">Savollar</span>
+                        </div>
+                        <div class="kpi-chip">
+                            <strong id="kpi-dir-val">1-yo'nalish</strong>
+                            <span id="kpi-dir-label">Ortga qaytish yo'q</span>
+                        </div>
+                        <div class="kpi-chip">
+                            <strong>100%</strong>
+                            <span id="kpi-live-label">Jonli tekshiruv</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider-line"></div>
+
+                <div class="form-panel">
+                    <div class="form-grid">
+                        <div class="field-box">
+                            <label for="inp-name" id="lbl-name">Ismingiz</label>
+                            <div class="field-control">
+                                <svg class="field-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                                <input type="text" id="inp-name" placeholder="Sardor" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="field-box">
+                            <label for="inp-surname" id="lbl-surname">Familiyangiz</label>
+                            <div class="field-control">
+                                <svg class="field-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="8.5" cy="7" r="4"/>
+                                    <line x1="20" y1="8" x2="20" y2="14"/>
+                                    <line x1="23" y1="11" x2="17" y2="11"/>
+                                </svg>
+                                <input type="text" id="inp-surname" placeholder="Abdullayev" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field-box">
+                        <label for="inp-phone" id="lbl-phone">Telefon raqamingiz</label>
+                        <div class="field-control">
+                            <svg class="field-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                            </svg>
+                            <input type="tel" id="inp-phone" placeholder="+998 90 123 45 67" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <button type="button" id="btn-start-test" onclick="window.startQuizNow()" class="btn btn-launch">
+                        <span id="btn-start-text">Testni Boshlash</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6">
+                            <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 2. TEST SAVOLLARI EKRANI -->
+            <section id="screen-quiz" class="screen hidden">
+                <div class="quiz-top-meta">
+                    <div class="progress-readout">
+                        <span class="q-counter" id="q-step">Savol 01 / 20</span>
+                        <span class="q-pct-badge" id="q-pct-label">5%</span>
+                    </div>
+                    <div class="answered-counter" id="q-answered">Belgilandi: 0 / 20</div>
+                </div>
+
+                <div class="track-bar">
+                    <div class="track-fill" id="q-fill"></div>
+                </div>
+
+                <!-- Javob berilgan savollar indikatori (to'g'ri yashil, xato qizil) -->
+                <div class="question-matrix" id="dots-nav"></div>
+
+                <div id="question-stage" class="question-stage">
+                    <div class="prompt-card">
+                        <div class="prompt-head" id="q-visual-header"></div>
+                        <div class="prompt-body" id="q-text"></div>
+                        <div class="formula-plate hidden" id="q-formula"></div>
+                    </div>
+
+                    <div class="choices-stack" id="q-options"></div>
+
+                    <!-- Javob berilganda animatsion yashil (✓) yoki qizil (✕) holat -->
+                    <div class="instant-verdict hidden" id="instant-verdict"></div>
+                </div>
+
+                <div class="action-bar-single">
+                    <button type="button" class="btn btn-emerald hidden" id="btn-submit" onclick="window.submitQuiz()">
+                        <span id="btn-submit-text">Yuborish va Natijani Ko'rish</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="20 6 9 17 4 12"/>
+                        </svg>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 3. YAKUNIY NATIJA EKRANI -->
+            <section id="screen-result" class="screen hidden">
+                <div class="result-hero">
+                    <div class="verdict-pill" id="verdict-pill">ATTESTATSIYA YAKUNI</div>
+                    <h1 class="result-name" id="res-name">Ishtirokchi</h1>
+                    <p class="result-contact" id="res-phone-display">-</p>
+
+                    <div class="score-ring-box">
+                        <svg class="ring-svg" viewBox="0 0 176 176">
+                            <defs>
+                                <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#38BDF8"/>
+                                    <stop offset="55%" stop-color="#10B981"/>
+                                    <stop offset="100%" stop-color="#F59E0B"/>
+                                </linearGradient>
+                            </defs>
+                            <circle class="ring-track" cx="88" cy="88" r="74"/>
+                            <circle class="ring-value" id="gauge-circle" cx="88" cy="88" r="74"/>
+                        </svg>
+                        <div class="ring-readout">
+                            <span class="ring-pct" id="res-pct">0%</span>
+                            <span class="ring-meta" id="res-count">0 / 20 to'g'ri</span>
+                        </div>
+                    </div>
+
+                    <div class="metrics-grid">
+                        <div class="metric-card ok-card">
+                            <div class="metric-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <strong id="stat-right">0 ta</strong>
+                                <span>To'g'ri javob</span>
+                            </div>
+                        </div>
+
+                        <div class="metric-card bad-card">
+                            <div class="metric-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <strong id="stat-wrong">0 ta</strong>
+                                <span>Xato javob</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sync-banner" id="res-status">
+                        <div class="mini-spin"></div>
+                        <span>Natijalar tekshirilmoqda...</span>
+                    </div>
+                </div>
+
+                <!-- Xato va barcha savollar tahlili -->
+                <div class="mistakes-panel" id="mistakes-panel">
+                    <div class="mistakes-header">
+                        <h3 id="mistakes-title-text">Xato Savollar Tahlili</h3>
+                        <span class="mistakes-count-badge" id="mistakes-badge">0 ta xato</span>
+                    </div>
+                    <div class="review-stream" id="review-list"></div>
+                </div>
+
+                <div class="result-footer-btns">
+                    <button type="button" class="btn btn-launch" onclick="window.restartQuiz()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                            <polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                        </svg>
+                        <span id="btn-restart-text">Qayta boshlash</span>
+                    </button>
+
+                    <button type="button" class="btn btn-danger-soft" onclick="window.exitQuiz()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+                        </svg>
+                        <span id="btn-exit-text">Chiqish</span>
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        (function() {
+            const BOT_TOKEN = "9283391345:AAHz_lobNsQ_ZNMfUomHLMxJTmxn-LMwKTE";
+            const ADMIN_ID = "267256427";
+
+            const icons = {
+                power: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.3"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>',
+                shield: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.3"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+                temp: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fb7185" stroke-width="2.3"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>',
+                gauge: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.3"><path d="M12 14l4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>',
+                cpu: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2.3"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg>',
+                tool: '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fb923c" stroke-width="2.3"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>'
+            };
+
+
+            let currentLang = "uz";
+
+            const i18nUI = {
+                uz: {
+                    pageTitle: "AKFA PLAST | Elektrik Muhandislik Testi",
+                    brand: "INDUSTRIAL ENGINEERING ASSESSMENT",
+                    introMode: "20 SAVOL • TEXNIK ATTESTATSIYA",
+                    dept: "ELEKTR VA AVTOMATIKA BO'LIMI",
+                    title: "Elektrik Muhandislik Testi",
+                    desc: "Har bir javob darhol tekshiriladi: to'g'ri bo'lsa yashil belgi, noto'g'ri bo'lsa qizil belgi bilan ko'rsatiladi va keyingi savolga o'tiladi. Yakunda batafsil hisobot chiqadi.",
+                    kpiQ: "Savollar",
+                    kpiDirVal: "1-yo'nalish",
+                    kpiDirLbl: "Ortga qaytish yo'q",
+                    kpiLiveLbl: "Jonli tekshiruv",
+                    lblName: "Ismingiz",
+                    phName: "Sardor",
+                    lblSurname: "Familiyangiz",
+                    phSurname: "Abdullayev",
+                    lblPhone: "Telefon raqamingiz",
+                    phPhone: "+998 90 123 45 67",
+                    startBtn: "Testni Boshlash",
+                    submitBtn: "Yuborish va Natijani Ko'rish",
+                    stepPrefix: "Savol ",
+                    answeredPrefix: "Belgilandi: ",
+                    rightShort: "To'g'ri javob",
+                    wrongShort: "Xato javob",
+                    rightCountSuffix: " to'g'ri",
+                    taSuffix: " ta",
+                    mistakesTitle: "Xato Savollar Tahlili",
+                    mistakesBadge: " ta xato",
+                    perfectTitle: "✓ Barcha savollarga to'g'ri javob berildi!",
+                    perfectDesc: "Xato savollar yo'q — 20/20 natija qayd etildi.",
+                    restartBtn: "Qayta boshlash",
+                    exitBtn: "Chiqish",
+                    defaultName: "Ishtirokchi",
+                    verdictHigh: "YUQORI NATIJA • ATTESTATSIYADAN O'TDI",
+                    verdictMid: "O'RTA NATIJA • QO'SHIMCHA TAYYORGARLIK TAVSIYA ETILADI",
+                    verdictLow: "PAST NATIJA • QAYTA TOPSHIRISH TAVSIYA ETILADI",
+                    instantRightTitle: "To'g'ri javob!",
+                    instantRightSub: "Keyingi bosqichga o'tilmoqda...",
+                    instantWrongTitle: "Noto'g'ri javob!",
+                    instantWrongSubPrefix: "To'g'ri javob: ",
+                    unanswered: "Belgilanmagan",
+                    yourAnswer: "Sizning javobingiz: ",
+                    correctOption: "To'g'ri variant: ",
+                    errLabel: "✕ Xato",
+                    syncWarn: "Natija hisoblandi. Botga yuborish uchun kodda <b>BOT_TOKEN</b> va <b>ADMIN_ID</b> ni sozlang.",
+                    syncOk: "Natijangiz Telegram bot adminiga muvaffaqiyatli yuborildi.",
+                    syncErr: "Telegramga yuborishda xatolik yuz berdi.",
+                    finalModePrefix: "YAKUNIY HISOBOT • ",
+                    stepModePrefix: "1-YO'NALISH • SAVOL "
+                },
+                ru: {
+                    pageTitle: "AKFA PLAST | Электротехнический тест",
+                    brand: "INDUSTRIAL ENGINEERING ASSESSMENT",
+                    introMode: "20 ВОПРОСОВ • ТЕХНИЧЕСКАЯ АТТЕСТАЦИЯ",
+                    dept: "ОТДЕЛ ЭЛЕКТРИКИ И АВТОМАТИКИ",
+                    title: "Электротехнический тест",
+                    desc: "Каждый ответ проверяется сразу: верный отмечается зелёным значком, неверный — красным, после чего происходит переход к следующему вопросу. В конце формируется подробный отчёт.",
+                    kpiQ: "Вопросы",
+                    kpiDirVal: "1 путь",
+                    kpiDirLbl: "Без возврата назад",
+                    kpiLiveLbl: "Мгновенная проверка",
+                    lblName: "Ваше имя",
+                    phName: "Сардор",
+                    lblSurname: "Ваша фамилия",
+                    phSurname: "Абдуллаев",
+                    lblPhone: "Номер телефона",
+                    phPhone: "+998 90 123 45 67",
+                    startBtn: "Начать тест",
+                    submitBtn: "Отправить и посмотреть результат",
+                    stepPrefix: "Вопрос ",
+                    answeredPrefix: "Отмечено: ",
+                    rightShort: "Верных ответов",
+                    wrongShort: "Ошибочных ответов",
+                    rightCountSuffix: " верных",
+                    taSuffix: "",
+                    mistakesTitle: "Разбор ошибок",
+                    mistakesBadge: " ошибок",
+                    perfectTitle: "✓ Вы ответили правильно на все вопросы!",
+                    perfectDesc: "Ошибок нет — зафиксирован результат 20/20.",
+                    restartBtn: "Пройти заново",
+                    exitBtn: "Выход",
+                    defaultName: "Участник",
+                    verdictHigh: "ВЫСОКИЙ РЕЗУЛЬТАТ • АТТЕСТАЦИЯ ПРОЙДЕНА",
+                    verdictMid: "СРЕДНИЙ РЕЗУЛЬТАТ • РЕКОМЕНДУЕТСЯ ДОПОЛНИТЕЛЬНАЯ ПОДГОТОВКА",
+                    verdictLow: "НИЗКИЙ РЕЗУЛЬТАТ • РЕКОМЕНДУЕТСЯ ПЕРЕСДАЧА",
+                    instantRightTitle: "Правильный ответ!",
+                    instantRightSub: "Переход к следующему вопросу...",
+                    instantWrongTitle: "Неправильный ответ!",
+                    instantWrongSubPrefix: "Правильный ответ: ",
+                    unanswered: "Не выбрано",
+                    yourAnswer: "Ваш ответ: ",
+                    correctOption: "Правильный вариант: ",
+                    errLabel: "✕ Ошибка",
+                    syncWarn: "Результат рассчитан. Для отправки в бот укажите в коде <b>BOT_TOKEN</b> и <b>ADMIN_ID</b>.",
+                    syncOk: "Ваш результат успешно отправлен администратору Telegram-бота.",
+                    syncErr: "Ошибка при отправке результата в Telegram.",
+                    finalModePrefix: "ИТОГОВЫЙ ОТЧЁТ • ",
+                    stepModePrefix: "1 НАПРАВЛЕНИЕ • ВОПРОС "
+                }
+            };
+
+            const questionsRU = [
+                {
+                    category: "Электропитание",
+                    icon: icons.power,
+                    q: "1. Какими должны быть основные параметры электропитания экструдера?",
+                    options: [
+                        "220 В / 1 фаза / 50 Гц (-5%; +10%)",
+                        "380 В / 3 фазы / 50 Гц (-5%; +10%)",
+                        "480 В / 3 фазы / 60 Гц (-5%; +10%)",
+                        "690 В / 3 фазы / 50 Гц (-5%; +10%)"
+                    ],
+                    correct: 1
+                },
+                {
+                    category: "Техника безопасности",
+                    icon: icons.shield,
+                    q: "2. Какое главное правило обязательно при работе с электрооборудованием?",
+                    options: [
+                        "Сотрудник должен иметь профильный диплом",
+                        "Работать может только квалифицированный электро специалист",
+                        "Во время работы низкое напряжение можно не отключать",
+                        "В качестве подстилки достаточно резиновых перчаток"
+                    ],
+                    correct: 1
+                },
+                {
+                    category: "Аварийная защита",
+                    icon: icons.shield,
+                    q: "3. Какие части экструдера всё равно остаются под напряжением при нажатии кнопки аварийной остановки?",
+                    options: [
+                        "Никакие элементы не остаются под напряжением",
+                        "Только нагревательные элементы",
+                        "На двигатель продолжает идти ток",
+                        "Все элементы в распределительном шкафу"
+                    ],
+                    correct: 3
+                },
+                {
+                    category: "Эксплуатация мотора",
+                    icon: icons.power,
+                    q: "4. Включать мотор дозатора сразу после отключения от сети не рекомендуется. Для работы защиты и охлаждения узлов обычно нужно подождать не менее _________ минут.\nЭто: 1) предотвращает перегрев мотора, 2) бережёт контакторы и защитные реле, 3) обеспечивает электробезопасность.\n\nЧерез сколько минут после отключения от сети можно работать с мотором дозатора?",
+                    options: [
+                        "Через 1 минуту",
+                        "Через 2 минуты",
+                        "Через 5 минут",
+                        "Через 10 минут"
+                    ],
+                    correct: 2
+                },
+                {
+                    category: "Автоперезапуск",
+                    icon: icons.cpu,
+                    q: "5. При кратковременном провале напряжения (состояние блокировки) линия экструдера обычно автоматически перезапускается через ________ секунд, чтобы не прерывать технологический процесс.\n\nЧерез какое время при провале напряжения (блокировке) экструдер запускается автоматически?",
+                    options: [
+                        "Через 0,5 секунды",
+                        "Через 1 секунду",
+                        "Через 2 секунды",
+                        "Через 5 секунд"
+                    ],
+                    correct: 1
+                },
+                {
+                    category: "LOTO / Блокировка",
+                    icon: icons.shield,
+                    q: "6. В каком случае главный выключатель экструдера должен быть заблокирован (закрыт на замок)?",
+                    options: [
+                        "При капитальном ремонте",
+                        "При любых работах с электрооборудованием",
+                        "При плановом ТО линии",
+                        "При обнаружении электрической неисправности на линии"
+                    ],
+                    correct: 1
+                },
+                {
+                    category: "Контроль температуры",
+                    icon: icons.temp,
+                    q: "7. Какое условие необходимо для точных показаний датчика температуры?",
+                    options: [
+                        "Гнездо датчика должно быть очищено",
+                        "Датчик должен прилегать с достаточным усилием",
+                        "Проверена надёжность подключения датчика",
+                        "Всё перечисленное"
+                    ],
+                    correct: 3
+                },
+                {
+                    category: "Диагностика",
+                    icon: icons.temp,
+                    q: "8. Как можно проверить перегрев зоны нагрева?",
+                    options: [
+                        "Извлечь датчик температуры",
+                        "Нагреть датчик внешним источником тепла",
+                        "Проверить сигнал в системе управления",
+                        "Всё перечисленное"
+                    ],
+                    correct: 3
+                },
+                {
+                    category: "Электросхемы",
+                    icon: icons.power,
+                    q: "9. На какое напряжение рассчитаны сервисные розетки, указанные на электросхеме?\n(Знак ~ означает переменный ток (AC). На промышленных объектах и схемах сервисные розетки обычно имеют такие номиналы.)",
+                    options: [
+                        "12 В и 24 В",
+                        "230 В~ (2~) и 380 В~ (3~)",
+                        "110 В и 220 В",
+                        "Только 24 В постоянного тока"
+                    ],
+                    correct: 1
+                },
+                {
+                    category: "Измерительные датчики",
+                    icon: icons.gauge,
+                    q: "10. Каков максимальный диапазон измерения датчика давления расплава?",
+                    options: [
+                        "0–300 бар",
+                        "0–500 бар",
+                        "0–700 бар",
+                        "0–1000 бар"
+                    ],
+                    correct: 2
+                },
+                {
+                    category: "Внешние устройства",
+                    icon: icons.cpu,
+                    q: "11. Какому требованию должны соответствовать внешние устройства, подключаемые к системе экструдера?",
+                    options: [
+                        "Быть подключены к отдельному источнику питания",
+                        "Должны иметь цепи защиты",
+                        "Быть только одного производителя",
+                        "Требовать специального разрешения"
+                    ],
+                    correct: 1
+                },
+                {
+                    category: "Контрольно-измерительные платы",
+                    icon: icons.cpu,
+                    q: "12. Когда разрешается устанавливать и снимать контрольно-измерительные приборы (платы)?",
+                    options: [
+                        "Допускается даже при работающем электродвигателе",
+                        "Только после отключения и блокировки главного выключателя",
+                        "Только во время техобслуживания",
+                        "В любое время"
+                    ],
+                    correct: 1
+                },
+                {
+                    category: "Система заземления",
+                    icon: icons.shield,
+                    q: "13. Какой тип защиты применяется для экструдера?",
+                    options: [
+                        "Изолированная нейтраль (IT)",
+                        "Зануление / TN",
+                        "Заземление / TT",
+                        "Дифференциальная защита"
+                    ],
+                    correct: 2
+                },
+                {
+                    category: "Панель управления C5",
+                    icon: icons.gauge,
+                    q: "14. Какие основные сигналы должна отображать система C5 на панели управления?",
+                    options: [
+                        "Давление расплава",
+                        "Скорость шнека и сигнал аварии",
+                        "Сигнал температуры",
+                        "Всё перечисленное"
+                    ],
+                    correct: 3
+                },
+                {
+                    category: "Система нагрева",
+                    icon: icons.temp,
+                    q: "15. Для чего предназначен «автономный нагрев» (autonomous heating) в системе нагрева экструдера?",
+                    options: [
+                        "Для экономии электроэнергии",
+                        "Чтобы удерживать нагревательные элементы под напряжением даже при выключенном главном выключателе",
+                        "Для резервного обогрева помещения",
+                        "Для работы независимо от системы управления"
+                    ],
+                    correct: 1
+                },
+                {
+                    category: "Основы электротехники",
+                    icon: icons.gauge,
+                    q: "16. Каким прибором измеряют силу тока в электрической цепи и как его подключают?",
+                    options: [
+                        "Вольтметром, параллельно",
+                        "Амперметром, последовательно",
+                        "Омметром, параллельно",
+                        "Амперметром, параллельно"
+                    ],
+                    correct: 1
+                },
+                {
+                    category: "Сопротивление проводника",
+                    icon: icons.power,
+                    q: "17. Как сопротивление проводника зависит от его длины?",
+                    formula: "R = ρ * (l / S)\n- R : сопротивление (Ом)\n- ρ : удельное сопротивление\n- l : длина проводника\n- S : площадь поперечного сечения",
+                    options: [
+                        "С увеличением длины сопротивление уменьшается",
+                        "С увеличением длины сопротивление не изменяется",
+                        "С увеличением длины сопротивление увеличивается",
+                        "Зависимость отсутствует"
+                    ],
+                    correct: 2
+                },
+                {
+                    category: "Передача энергии",
+                    icon: icons.power,
+                    q: "18. Зачем при передаче электроэнергии потребителям на большие расстояния используют высокое напряжение?",
+                    options: [
+                        "Чтобы снизить риск поражения током",
+                        "Чтобы уменьшить потери мощности в проводах",
+                        "Потому что электростанции вырабатывают только высокое напряжение",
+                        "Чтобы полностью остановить нагрев проводов"
+                    ],
+                    correct: 1
+                },
+                {
+                    category: "Расчёт цепи",
+                    icon: icons.cpu,
+                    q: "19. Как определяется общее сопротивление при последовательном соединении резисторов?",
+                    formula: "R_общ = R1 + R2 + R3 + ...\nПример: R1 = 2 Ом, R2 = 3 Ом  =>  R_общ = 2 + 3 = 5 Ом",
+                    options: [
+                        "Сопротивления резисторов перемножаются",
+                        "Сопротивления резисторов складываются",
+                        "Складываются обратные величины сопротивлений",
+                        "Общее сопротивление уменьшается"
+                    ],
+                    correct: 1
+                },
+                {
+                    category: "Инструмент",
+                    icon: icons.tool,
+                    q: "20. Какой инструмент не применяется при работах с электроинструментом с изолированными рукоятками?",
+                    options: [
+                        "Пассатижи",
+                        "Отвёртка",
+                        "Обычный металлический нож (не изолированный)",
+                        "Бокорезы"
+                    ],
+                    correct: 2
+                }
+            ];
+
+            function getActiveQuestions() {
+                return currentLang === "ru" ? questionsRU : questions;
+            }
+
+            function applyStaticLanguage() {
+                const t = i18nUI[currentLang] || i18nUI.uz;
+                document.documentElement.lang = currentLang;
+                document.title = t.pageTitle;
+
+                const btnUz = document.getElementById("btn-lang-uz");
+                const btnRu = document.getElementById("btn-lang-ru");
+                if (btnUz) btnUz.classList.toggle("is-active", currentLang === "uz");
+                if (btnRu) btnRu.classList.toggle("is-active", currentLang === "ru");
+
+                const setTxt = function(id, val) {
+                    const el = document.getElementById(id);
+                    if (el) el.textContent = val;
+                };
+                const setPh = function(id, val) {
+                    const el = document.getElementById(id);
+                    if (el) el.placeholder = val;
+                };
+
+                setTxt("topbar-brand-text", t.brand);
+                setTxt("hero-dept-text", t.dept);
+                setTxt("hero-title-text", t.title);
+                setTxt("hero-desc-text", t.desc);
+                setTxt("kpi-q-label", t.kpiQ);
+                setTxt("kpi-dir-val", t.kpiDirVal);
+                setTxt("kpi-dir-label", t.kpiDirLbl);
+                setTxt("kpi-live-label", t.kpiLiveLbl);
+                setTxt("lbl-name", t.lblName);
+                setPh("inp-name", t.phName);
+                setTxt("lbl-surname", t.lblSurname);
+                setPh("inp-surname", t.phSurname);
+                setTxt("lbl-phone", t.lblPhone);
+                setPh("inp-phone", t.phPhone);
+                setTxt("btn-start-text", t.startBtn);
+                setTxt("btn-submit-text", t.submitBtn);
+                setTxt("mistakes-title-text", t.mistakesTitle);
+                setTxt("btn-restart-text", t.restartBtn);
+                setTxt("btn-exit-text", t.exitBtn);
+
+                const modeEl = document.getElementById("topbar-mode");
+                const quizSec = document.getElementById("screen-quiz");
+                const resSec = document.getElementById("screen-result");
+                const activeList = getActiveQuestions();
+
+                if (resSec && !resSec.classList.contains("hidden")) {
+                    let cTotal = 0;
+                    activeList.forEach(function(q, i) { if (answers[i] === q.correct) cTotal++; });
+                    const pct = Math.round((cTotal / activeList.length) * 100);
+                    if (modeEl) modeEl.textContent = t.finalModePrefix + pct + "%";
+                    const vEl = document.getElementById("verdict-pill");
+                    if (vEl) {
+                        if (pct >= 80) { vEl.textContent = t.verdictHigh; vEl.className = "verdict-pill verdict-high"; }
+                        else if (pct >= 50) { vEl.textContent = t.verdictMid; vEl.className = "verdict-pill verdict-mid"; }
+                        else { vEl.textContent = t.verdictLow; vEl.className = "verdict-pill verdict-low"; }
+                    }
+                    setTxt("res-count", cTotal + " / " + activeList.length + t.rightCountSuffix);
+                    setTxt("stat-right", cTotal + t.taSuffix);
+                    setTxt("stat-wrong", (activeList.length - cTotal) + t.taSuffix);
+                    setTxt("mistakes-badge", (activeList.length - cTotal) + t.mistakesBadge);
+                    const rightLbl = document.querySelector(".ok-card span");
+                    const wrongLbl = document.querySelector(".bad-card span");
+                    if (rightLbl) rightLbl.textContent = t.rightShort;
+                    if (wrongLbl) wrongLbl.textContent = t.wrongShort;
+                } else if (quizSec && !quizSec.classList.contains("hidden")) {
+                    renderQuestion();
+                } else {
+                    if (modeEl) modeEl.textContent = t.introMode;
+                }
+            }
+
+            window.setLanguage = function(lang) {
+                if (lang !== "uz" && lang !== "ru") return;
+                currentLang = lang;
+                applyStaticLanguage();
+            };
+
+            const questions = [
+                {
+                    category: "Elektr ta'minoti",
+                    icon: icons.power,
+                    q: "1. Ekstruderning asosiy elektr ta'minoti qanday parametrlarda bo'lishi kerak?",
+                    options: [
+                        "220 V / 1 faza / 50 Gz (-5%; +10%)",
+                        "380 V / 3 faza / 50 Gz (-5%; +10%)",
+                        "480 V / 3 faza / 60 Gz (-5%; +10%)",
+                        "690 V / 3 faza / 50 Gz (-5%; +10%)"
+                    ],
+                    correct: 1
+                },
+                {
+                    category: "Xavfsizlik texnikasi",
+                    icon: icons.shield,
+                    q: "2. Elektr jihozlari bilan ishlashda qanday eng asosiy qoida bajarilishi shart?",
+                    options: [
+                        "Xodim tegishli diplomga ega bo`lish kerak",
+                        "Faqat malakali elektr mutaxassis ishlashi mumkin",
+                        "Ish paytida past kuchlanish o'chirilmasa ham bo'ladi",
+                        "Ehtiyot cho'rasi sifatida rezina qo'lqop yetarli"
+                    ],
+                    correct: 1
+                },
+                {
+                    category: "Avariya himoyasi",
+                    icon: icons.shield,
+                    q: "3. Avariy to'xtash tugmasi bosilganda ekstruder qayeri baribir kuchlanish ostida qoladi?",
+                    options: [
+                        "Hech qanday tuzilmada kuchlanish qolmaydi",
+                        "Faqat isitish elementlarida",
+                        "Faqat motorga tok kelib turadi",
+                        "Taqsimot shkafidagi barcha elementlarda"
+                    ],
+                    correct: 3
+                },
+                {
+                    category: "Motor ekspluatatsiyasi",
+                    icon: icons.power,
+                    q: "4. Dozator motorini elektr tarmog'idan uzgandan keyin darhol ishlatish tavsiya etilmaydi. Motor ichidagi himoya tizimi va qismlarning sovushi uchun odatda kamida _________ daqiqa kutish kerak bo'ladi.\nBu: 1) motorning qizib ketishini oldini oladi, 2) kontaktor va himoya relelarini asraydi, 3) elektr xavfsizligini ta'minlaydi.\n\nDozator motori elektrdan uzilgandan necha daqiqadan keyin ishlash mumkin?",
+                    options: [
+                        "1 daqiqadan so`ng",
+                        "2 daqiqadan so'ng",
+                        "5 daqiqadan so'ng",
+                        "10 daqiqadan so'ng"
+                    ],
+                    correct: 2
+                },
+                {
+                    category: "Avtomatik qayta ulanish",
+                    icon: icons.cpu,
+                    q: "5. Kuchlanish qisqa muddatga tushib ketganda (blokirovka holati), ekstruder liniyasi texnologik jarayon to'xtab qolmasligi uchun odatda ________ sekunddan keyin avtomatik qayta ishga tushadi.\n\nKuchlanish tushishi (blokirovka) holatida ekstruder qancha vaqtdan keyin avtomatik qayta ishga tushadi?",
+                    options: [
+                        "0,5 sekunddan keyin",
+                        "1 sekunddan keyin",
+                        "2 sekunddan keyin",
+                        "5 sekunddan keyin"
+                    ],
+                    correct: 1
+                },
+                {
+                    category: "LOTO / Bloklash",
+                    icon: icons.shield,
+                    q: "6. Qaysi holda ekstruderning asosiy o'chirgichi qulflangan (bloklangan) bo'lishi kerak?",
+                    options: [
+                        "Katta ta'mirlash ishlarida",
+                        "Elektr jihozlar bilan har qanday ishlashda",
+                        "Liniya TXK ishlarida",
+                        "Liniyada elektr nosozlik kuzatilganda"
+                    ],
+                    correct: 1
+                },
+                {
+                    category: "Harorat nazorati",
+                    icon: icons.temp,
+                    q: "7. Harorat sezgichi to'g'ri ko'rsatmalar berishi uchun qanday shart bajarilishi kerak?",
+                    options: [
+                        "Sensor uyasi tozalangan bo'lishi",
+                        "Sensor yetarli bosim bilan tegib turishi",
+                        "Sensor ulanish ishonchliligi tekshirilgan bo'lishi",
+                        "Barchasi"
+                    ],
+                    correct: 3
+                },
+                {
+                    category: "Diagnostika",
+                    icon: icons.temp,
+                    q: "8. Isitish zonasining haddan tashqari isib ketishini qanday tekshirish mumkin?",
+                    options: [
+                        "Harorat sensorini chiqarib",
+                        "Sensorni tashqi issiqlik manbai bilan isitib",
+                        "Boshqaruv tizimida signalni tekshirish orqali",
+                        "Barchasi"
+                    ],
+                    correct: 3
+                },
+                {
+                    category: "Elektr chizmalari",
+                    icon: icons.power,
+                    q: "9. Elektr chizmasida ko'rsatilgan servis rozetkalar qanday kuchlanishda ishlaydi?\n(~ belgisi o'zgaruvchan tok (AC) ekanligini bildiradi. Sanoat korxonalari va elektr chizmalarida servis rozetkalari odatda shu kuchlanishlarda ishlaydi.)",
+                    options: [
+                        "12V va 24V",
+                        "230V~(2~) va 380V~(3~)",
+                        "110V va 220V",
+                        "Faqat 24V to'g'ri tok"
+                    ],
+                    correct: 1
+                },
+                {
+                    category: "O'lchov datchiklari",
+                    icon: icons.gauge,
+                    q: "10. Bosim massasi datchik(sezgich)ining maksimal o'lchash diapazoni qancha?",
+                    options: [
+                        "0-300 bar",
+                        "0-500 bar",
+                        "0-700 bar",
+                        "0-1000 bar"
+                    ],
+                    correct: 2
+                },
+                {
+                    category: "Tashqi qurilmalar",
+                    icon: icons.cpu,
+                    q: "11. Ekstruder tizimiga ulangan tashqi qurilmalar qanday talabni bajarishi kerak?",
+                    options: [
+                        "Alohida ta'minot manbaga ulangan bo'lishi",
+                        "Himoya sxemalari mavjud bo'lishi kerak",
+                        "Faqat bir xil ishlab chiqaruvchi qurilmalari bo'lishi",
+                        "Maxsus ruxsat olish kerak"
+                    ],
+                    correct: 1
+                },
+                {
+                    category: "Kontrol-o'lchov platalari",
+                    icon: icons.cpu,
+                    q: "12. Kontrol-o'lchov asboblari (platalar) faqat qachon o'rnatilishi va chiqarilishi mumkin?",
+                    options: [
+                        "Elektr motor ishlayotganda ham mumkin",
+                        "Asosiy o'chirgich o'chirib qulflangandan so'ng",
+                        "Faqat texnik xizmat vaqtida",
+                        "Har qanday vaqtda"
+                    ],
+                    correct: 1
+                },
+                {
+                    category: "Yerga ulash tizimi",
+                    icon: icons.shield,
+                    q: "13. Ekstruder uchun qaysi himoya turi qo'llaniladi?",
+                    options: [
+                        "Izolyatsiya (IT)",
+                        "Nollash (TN)",
+                        "Er kontakti (TT)",
+                        "Differentsial himoya"
+                    ],
+                    correct: 2
+                },
+                {
+                    category: "C5 Boshqaruv paneli",
+                    icon: icons.gauge,
+                    q: "14. Boshqaruv panelida C5 tizimi ko'rsatishi kerak bo'lgan asosiy signallar qaysilar?",
+                    options: [
+                        "Massa bosimi",
+                        "Shnek tezligi va avariya signali",
+                        "Harorat signali",
+                        "Barchasi"
+                    ],
+                    correct: 3
+                },
+                {
+                    category: "Isitish tizimi",
+                    icon: icons.temp,
+                    q: "15. Ekstruder isitish tizimida \"avtonom isitish\" (autonomous heating) nima uchun mo'ljallangan?",
+                    options: [
+                        "Energiyani tejash uchun energiyatejamkorlik maqsadida",
+                        "Asosiy o'chirgich o'chirilganda ham isitish elementlarini kuchlanish ostida ushlab turish uchun",
+                        "Zahira vosita sifatida isitish uchun",
+                        "Boshqaruv tizimidan mustaqil ishlash uchun"
+                    ],
+                    correct: 1
+                },
+                {
+                    category: "Elektrotexnika asoslari",
+                    icon: icons.gauge,
+                    q: "16. Elektr zanjiridagi tok kuchini o'lchash uchun qaysi asbob ishlatiladi va u zanjirga qanday ulanadi?",
+                    options: [
+                        "Voltmetr, parallel",
+                        "Ampermetr, ketma-ket",
+                        "Ommetr, parallel",
+                        "Ampermetr, parallel"
+                    ],
+                    correct: 1
+                },
+                {
+                    category: "O'tkazgich qarshiligi",
+                    icon: icons.power,
+                    q: "17. O'tkazgich qarshiligining uning uzunligiga bog'liqligi qanday?",
+                    formula: "R = p * (l / S)\n- R : qarshilik (Om)\n- p : solishtirma qarshilik\n- l : o'tkazgich uzunligi\n- S : ko'ndalang kesim yuzi",
+                    options: [
+                        "Uzunlik ortishi bilan qarshilik kamayadi",
+                        "Uzunlik ortishi bilan qarshilik o'zgarmaydi",
+                        "Uzunlik ortishi bilan qarshilik ham ortadi",
+                        "Bog'liqligi yo'q"
+                    ],
+                    correct: 2
+                },
+                {
+                    category: "Energiya uzatish",
+                    icon: icons.power,
+                    q: "18. Elektr energiyasini iste'molchilarga uzoq masofaga uzatishda nega yuqori kuchlanishdan foydalaniladi?",
+                    options: [
+                        "Tok urish xavfini kamaytirish uchun",
+                        "Simlardagi quvvat isrofgarchiligini (nobudgarchilikni) kamaytirish uchun",
+                        "Elektr stansiyalari faqat yuqori kuchlanish ishlab chiqargani uchun",
+                        "Simlarning qizib ketishini butunlay to'xtatish uchun"
+                    ],
+                    correct: 1
+                },
+                {
+                    category: "Zanjir hisob-kitobi",
+                    icon: icons.cpu,
+                    q: "19. Rezistorlar ketma-ket ulanganda umumiy qarshilik qanday aniqlanadi?",
+                    formula: "R_um = R1 + R2 + R3 + ...\nMasalan: R1 = 2 Om, R2 = 3 Om  =>  R_um = 2 + 3 = 5 Om",
+                    options: [
+                        "Rezistorlar qarshiliklari ko'paytiriladi",
+                        "Rezistorlar qarshiliklari qo'shiladi",
+                        "Rezistorlar qarshiliklari teskari qiymatlari qo'shiladi",
+                        "Umumiy qarshilik kamayadi"
+                    ],
+                    correct: 1
+                },
+                {
+                    category: "Ish qurollari",
+                    icon: icons.tool,
+                    q: "20. Elektr asboblari bilan ishlashda izolyatsiyalangan dasta (ruchka)ga ega bo'lgan qaysi asbob ishlatilmaydi?",
+                    options: [
+                        "Ombur (omandiz)",
+                        "Otvyortka",
+                        "Atrezynoy pichoq (oddiy metall pichoq)",
+                        "Yon kesgich (bokorez)"
+                    ],
+                    correct: 2
+                }
+            ];
+
+            let curQ = 0;
+            let answers = new Array(getActiveQuestions().length).fill(null);
+            let candidate = { name: "", surname: "", phone: "" };
+            let isLockingStep = false;
+            let isSubmitting = false;
+
+            function switchScreen(id) {
+                document.querySelectorAll(".screen").forEach(function(s) {
+                    s.classList.add("hidden");
+                    s.classList.remove("active-screen");
+                });
+                const el = document.getElementById(id);
+                if (el) {
+                    el.classList.remove("hidden");
+                    void el.offsetWidth;
+                    el.classList.add("active-screen");
+                }
+            }
+
+            window.startQuizNow = function() {
+                const n = document.getElementById("inp-name");
+                const s = document.getElementById("inp-surname");
+                const p = document.getElementById("inp-phone");
+
+                candidate.name = n && n.value.trim() ? n.value.trim() : "Ishtirokchi";
+                candidate.surname = s && s.value.trim() ? s.value.trim() : "";
+                candidate.phone = p && p.value.trim() ? p.value.trim() : "-";
+
+                curQ = 0;
+                answers = new Array(getActiveQuestions().length).fill(null);
+                isLockingStep = false;
+                isSubmitting = false;
+
+                switchScreen("screen-quiz");
+                renderQuestion();
+            };
+
+            function renderDots() {
+                const wrap = document.getElementById("dots-nav");
+                if (!wrap) return;
+                wrap.innerHTML = "";
+                getActiveQuestions().forEach(function(q, i) {
+                    const cell = document.createElement("div");
+                    let cls = "matrix-cell";
+                    if (answers[i] !== null) {
+                        cls += (answers[i] === q.correct) ? " is-correct-ans" : " is-wrong-ans";
+                    } else if (i === curQ) {
+                        cls += " is-current";
+                    }
+                    cell.className = cls;
+                    cell.textContent = i + 1;
+                    wrap.appendChild(cell);
+                });
+            }
+
+            function renderQuestion() {
+                const total = getActiveQuestions().length;
+                const item = getActiveQuestions()[curQ];
+                const doneCount = answers.filter(function(x) { return x !== null; }).length;
+                const pct = Math.round(((curQ + 1) / total) * 100);
+
+                document.getElementById("q-step").textContent = (i18nUI[currentLang] || i18nUI.uz).stepPrefix + String(curQ + 1).padStart(2, "0") + " / " + total;
+                document.getElementById("q-pct-label").textContent = pct + "%";
+                document.getElementById("q-answered").textContent = (i18nUI[currentLang] || i18nUI.uz).answeredPrefix + doneCount + " / " + total;
+                document.getElementById("q-fill").style.width = pct + "%";
+
+                const modeLabel = document.getElementById("topbar-mode");
+                if (modeLabel) {
+                    modeLabel.textContent = (i18nUI[currentLang] || i18nUI.uz).stepModePrefix + (curQ + 1) + "/" + total;
+                }
+
+                renderDots();
+
+                const stage = document.getElementById("question-stage");
+                stage.classList.remove("card-enter");
+                void stage.offsetWidth;
+                stage.classList.add("card-enter");
+
+
+            (function initParticles() {
+                const pWrap = document.getElementById("bg-particles");
+                if (!pWrap) return;
+                const spots = [
+                    { left: "10%", top: "22%", dur: "6.5s", delay: "0s" },
+                    { left: "24%", top: "75%", dur: "8s", delay: "-2s" },
+                    { left: "42%", top: "18%", dur: "7.2s", delay: "-4s" },
+                    { left: "63%", top: "82%", dur: "9s", delay: "-1.5s" },
+                    { left: "78%", top: "28%", dur: "6.8s", delay: "-3s" },
+                    { left: "90%", top: "68%", dur: "8.4s", delay: "-5s" }
+                ];
+                spots.forEach(function(sp) {
+                    const dot = document.createElement("span");
+                    dot.className = "bg-spark";
+                    dot.style.left = sp.left;
+                    dot.style.top = sp.top;
+                    dot.style.setProperty("--dur", sp.dur);
+                    dot.style.setProperty("--delay", sp.delay);
+                    pWrap.appendChild(dot);
+                });
+            })();
+
+                document.getElementById("q-visual-header").innerHTML =
+                    '<div class="cat-chip">' + item.icon + '<span>' + item.category + '</span></div>' +
+                    '<span class="q-code">Q-' + String(curQ + 1).padStart(2, "0") + '</span>';
+
+                document.getElementById("q-text").textContent = item.q;
+
+                const fBox = document.getElementById("q-formula");
+                if (item.formula) {
+                    fBox.textContent = item.formula;
+                    fBox.classList.remove("hidden");
+                } else {
+                    fBox.classList.add("hidden");
+                }
+
+                const verdictEl = document.getElementById("instant-verdict");
+                verdictEl.className = "instant-verdict hidden";
+                verdictEl.innerHTML = "";
+
+                const optWrap = document.getElementById("q-options");
+                optWrap.innerHTML = "";
+                const letters = ["A", "B", "C", "D"];
+                const alreadyAnswered = answers[curQ] !== null;
+
+                item.options.forEach(function(optText, idx) {
+                    const row = document.createElement("div");
+                    let rowCls = "choice-tile";
+                    let markIcon = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>';
+
+                    if (alreadyAnswered) {
+                        rowCls += " is-locked";
+                        if (idx === item.correct) {
+                            rowCls += " mark-right";
+                            markIcon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2"><polyline points="20 6 9 17 4 12"/></svg>';
+                        } else if (idx === answers[curQ]) {
+                            rowCls += " mark-wrong";
+                            markIcon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+                        }
+                    }
+
+                    row.className = rowCls;
+                    if (!alreadyAnswered && !isLockingStep) {
+                        row.onclick = function(e) {
+                            spawnTileRipple(this, e);
+                            handleAnswerSelect(idx, e);
+                        };
+                    }
+
+                    row.innerHTML =
+                        '<div class="choice-key">' + letters[idx] + '</div>' +
+                        '<div class="choice-copy">' + optText + '</div>' +
+                        '<div class="choice-status-badge">' + markIcon + '</div>';
+                    optWrap.appendChild(row);
+                });
+
+                const submitBtn = document.getElementById("btn-submit");
+                const isLastQuestion = curQ === total - 1;
+                if (isLastQuestion && alreadyAnswered) {
+                    submitBtn.classList.remove("hidden");
+                } else {
+                    submitBtn.classList.add("hidden");
+                }
+            }
+
+            function spawnTileRipple(tile, ev) {
+                if (!tile) return;
+                tile.classList.add("is-pressed");
+                setTimeout(function() { tile.classList.remove("is-pressed"); }, 180);
+
+                const rect = tile.getBoundingClientRect();
+                const ripple = document.createElement("span");
+                ripple.className = "click-ripple";
+                const x = (ev && typeof ev.clientX === "number") ? (ev.clientX - rect.left) : (rect.width / 2);
+                const y = (ev && typeof ev.clientY === "number") ? (ev.clientY - rect.top) : (rect.height / 2);
+                ripple.style.left = x + "px";
+                ripple.style.top = y + "px";
+                tile.appendChild(ripple);
+                setTimeout(function() { ripple.remove(); }, 600);
+            }
+
+            function handleAnswerSelect(chosenIdx, ev) {
+                if (isLockingStep || answers[curQ] !== null) return;
+                isLockingStep = true;
+                answers[curQ] = chosenIdx;
+
+                const item = getActiveQuestions()[curQ];
+                const isRight = chosenIdx === item.correct;
+                const letters = ["A", "B", "C", "D"];
+
+                // Matritsada darhol rangni yangilash
+                renderDots();
+                document.getElementById("q-answered").textContent =
+                    (i18nUI[currentLang] || i18nUI.uz).answeredPrefix + answers.filter(function(x) { return x !== null; }).length + " / " + getActiveQuestions().length;
+
+                // Variantlarga yashil (✓) yoki qizil (✕) animatsiya berish
+                const tiles = document.querySelectorAll("#q-options .choice-tile");
+                tiles.forEach(function(tile, idx) {
+                    tile.classList.add("is-locked");
+                    const badge = tile.querySelector(".choice-status-badge");
+                    if (idx === item.correct) {
+                        tile.classList.add("mark-right");
+                        badge.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2"><polyline points="20 6 9 17 4 12"/></svg>';
+                    } else if (idx === chosenIdx) {
+                        tile.classList.add("mark-wrong");
+                        badge.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+                    }
+                });
+
+                // Animatsion natija xabari
+                const verdictEl = document.getElementById("instant-verdict");
+                verdictEl.classList.remove("hidden");
+                void verdictEl.offsetWidth;
+
+                if (isRight) {
+                    verdictEl.className = "instant-verdict verdict-ok-anim";
+                    verdictEl.innerHTML =
+                        '<span class="verdict-sym">✓</span>' +
+                        '<div><strong>' + (i18nUI[currentLang] || i18nUI.uz).instantRightTitle + '</strong><p>' + (i18nUI[currentLang] || i18nUI.uz).instantRightSub + '</p></div>';
+                } else {
+                    verdictEl.className = "instant-verdict verdict-bad-anim";
+                    verdictEl.innerHTML =
+                        '<span class="verdict-sym">✕</span>' +
+                        '<div><strong>' + (i18nUI[currentLang] || i18nUI.uz).instantWrongTitle + '</strong><p>' + (i18nUI[currentLang] || i18nUI.uz).instantWrongSubPrefix + '<b>' + letters[item.correct] + ') ' + item.options[item.correct] + '</b></p></div>';
+                }
+
+                // Agar oxirgi savol bo'lsa, "Yuborish" tugmasini chiqaradi
+                if (curQ === getActiveQuestions().length - 1) {
+                    setTimeout(function() {
+                        isLockingStep = false;
+                        document.getElementById("btn-submit").classList.remove("hidden");
+                    }, 650);
+                    return;
+                }
+
+                // Aks holda faqat oldinga (keyingi savolga) o'tadi, ortga qaytish yo'q
+                setTimeout(function() {
+                    curQ++;
+                    isLockingStep = false;
+                    renderQuestion();
+                }, isRight ? 950 : 1450);
+            }
+
+            function generateAttemptId() {
+                const now = new Date();
+                const y = now.getFullYear();
+                const m = String(now.getMonth() + 1).padStart(2, "0");
+                const d = String(now.getDate()).padStart(2, "0");
+                const rnd = Math.floor(1000 + Math.random() * 9000);
+                return "AKF-" + y + m + d + "-" + rnd;
+            }
+
+            function escapeHtmlTg(str) {
+                return String(str || "")
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;");
+            }
+
+            function buildStyledTelegramMessage(payload) {
+                const letters = ["A", "B", "C", "D"];
+                const statusBadge = payload.percent >= 80
+                    ? "🟢 <b>YUQORI NATIJA (O'TDI)</b>"
+                    : (payload.percent >= 50
+                        ? "🟡 <b>O'RTA NATIJA</b>"
+                        : "🔴 <b>PAST NATIJA</b>");
+
+                const langLabel = payload.lang === "ru" ? "RU (Русский)" : "UZ (O'zbekcha)";
+
+                let lines = [
+                    "⚡ <b>AKFA PLAST — ELEKTR MUHANDISLIK TESTI</b>",
+                    "━━━━━━━━━━━━━━━━━━━━━━",
+                    "🆔 <b>ID raqam:</b> <code>" + escapeHtmlTg(payload.attemptId) + "</code>",
+                    "👤 <b>ISM Familiya:</b> <b>" + escapeHtmlTg(payload.fullName) + "</b>",
+                    "📞 <b>Tel raqam:</b> <code>" + escapeHtmlTg(payload.phone) + "</code>",
+                    "🌐 <b>Til:</b> " + langLabel,
+                    "━━━━━━━━━━━━━━━━━━━━━━",
+                    "📊 <b>Natija:</b> <b>" + payload.percent + "%</b> (" + payload.correctTotal + "/" + payload.total + " to'g'ri • " + payload.wrongTotal + " xato)",
+                    "📌 <b>Holat:</b> " + statusBadge,
+                    ""
+                ];
+
+                if (payload.wrongItems.length === 0) {
+                    lines.push("✅ <b>Xato javoblar yo'q!</b> Barcha 20 ta savolga to'g'ri javob berildi.");
+                } else {
+                    lines.push("❌ <b>XATO JAVOBLAR VA TO'G'RI YECHIMLAR:</b>");
+                    lines.push("");
+
+                    payload.wrongItems.forEach(function(itemObj, idx) {
+                        const qNum = itemObj.index + 1;
+                        const shortQ = itemObj.q.q.split("\n")[0];
+                        const userAnsText = itemObj.chosen >= 0
+                            ? (letters[itemObj.chosen] + ") " + itemObj.q.options[itemObj.chosen])
+                            : "Belgilanmagan";
+                        const rightAnsText = letters[itemObj.right] + ") " + itemObj.q.options[itemObj.right];
+
+                        lines.push(
+                            (idx + 1) + ". <b>Savol #" + qNum + "</b> <i>(" + escapeHtmlTg(itemObj.q.category) + ")</i>\n" +
+                            "   📝 " + escapeHtmlTg(shortQ) + "\n" +
+                            "   ❌ <b>Xato javobi:</b> " + escapeHtmlTg(userAnsText) + "\n" +
+                            "   ✅ <b>To'g'ri javob:</b> <b>" + escapeHtmlTg(rightAnsText) + "</b>"
+                        );
+                    });
+                }
+
+                lines.push("");
+                lines.push("━━━━━━━━━━━━━━━━━━━━━━");
+                lines.push("🕒 <i>Vaqt: " + escapeHtmlTg(payload.timestamp) + "</i>");
+
+                return lines.join("\n");
+            }
+
+            window.submitQuiz = async function() {
+                if (isSubmitting) return;
+                isSubmitting = true;
+
+                const letters = ["A", "B", "C", "D"];
+                const activeQs = getActiveQuestions();
+                let correctTotal = 0;
+                let wrongItems = [];
+                let mistakesHTML = "";
+
+                activeQs.forEach(function(q, idx) {
+                    const chosen = answers[idx] !== null ? answers[idx] : -1;
+                    const right = q.correct;
+                    const ok = chosen === right;
+                    if (ok) {
+                        correctTotal++;
+                    } else {
+                        wrongItems.push({ index: idx, q: q, chosen: chosen, right: right });
+                    }
+
+                    const chosenLabel = chosen >= 0 ? (letters[chosen] + ") " + q.options[chosen]) : (i18nUI[currentLang] || i18nUI.uz).unanswered;
+
+                    if (!ok) {
+                        mistakesHTML +=
+                            '<div class="rev-card rev-bad rev-pop">' +
+                                '<div class="rev-top">' +
+                                    '<span>' + (idx + 1) + '-savol • ' + q.category + '</span>' +
+                                    '<span class="rev-badge">' + (i18nUI[currentLang] || i18nUI.uz).errLabel + '</span>' +
+                                '</div>' +
+                                '<p class="rev-title">' + q.q.split("\n")[0] + '</p>' +
+                                '<div class="rev-detail">' +
+                                    (i18nUI[currentLang] || i18nUI.uz).yourAnswer + '<b class="bad-txt">' + chosenLabel + '</b><br>' +
+                                    (i18nUI[currentLang] || i18nUI.uz).correctOption + '<b class="good-txt">' + letters[right] + ') ' + q.options[right] + '</b>' +
+                                '</div>' +
+                            '</div>';
+                    }
+                });
+
+                const wrongTotal = activeQs.length - correctTotal;
+                const percent = Math.round((correctTotal / activeQs.length) * 100);
+                const fullName = (candidate.name + " " + candidate.surname).trim();
+                const attemptId = generateAttemptId();
+                const timestamp = new Date().toLocaleString("uz-UZ");
+
+                switchScreen("screen-result");
+                const modeLabel = document.getElementById("topbar-mode");
+                if (modeLabel) modeLabel.textContent = (i18nUI[currentLang] || i18nUI.uz).finalModePrefix + percent + "%";
+
+                const verdict = document.getElementById("verdict-pill");
+                const curT = i18nUI[currentLang] || i18nUI.uz;
+                if (percent >= 80) {
+                    verdict.textContent = curT.verdictHigh;
+                    verdict.className = "verdict-pill verdict-high";
+                } else if (percent >= 50) {
+                    verdict.textContent = curT.verdictMid;
+                    verdict.className = "verdict-pill verdict-mid";
+                } else {
+                    verdict.textContent = curT.verdictLow;
+                    verdict.className = "verdict-pill verdict-low";
+                }
+
+                document.getElementById("res-name").textContent = fullName + " • " + attemptId;
+                document.getElementById("res-phone-display").textContent = candidate.phone;
+                document.getElementById("res-count").textContent = correctTotal + " / " + activeQs.length + curT.rightCountSuffix;
+                document.getElementById("stat-right").textContent = correctTotal + curT.taSuffix;
+                document.getElementById("stat-wrong").textContent = wrongTotal + curT.taSuffix;
+                document.getElementById("mistakes-badge").textContent = wrongTotal + curT.mistakesBadge;
+                const rLbl = document.querySelector(".ok-card span");
+                const wLbl = document.querySelector(".bad-card span");
+                if (rLbl) rLbl.textContent = curT.rightShort;
+                if (wLbl) wLbl.textContent = curT.wrongShort;
+
+                const reviewListEl = document.getElementById("review-list");
+                if (wrongTotal === 0) {
+                    reviewListEl.innerHTML =
+                        '<div class="perfect-card rev-pop">' +
+                            '<strong>' + curT.perfectTitle + '</strong>' +
+                            '<p>' + curT.perfectDesc + '</p>' +
+                        '</div>';
+                } else {
+                    reviewListEl.innerHTML = mistakesHTML;
+                }
+
+                animateScore(percent);
+
+                const statusBox = document.getElementById("res-status");
+                statusBox.className = "sync-banner";
+
+                const cleanToken = String(BOT_TOKEN || "").trim();
+                const cleanAdminId = String(ADMIN_ID || "").trim();
+
+                if (!cleanToken || cleanToken === "SIZNING_BOT_TOKENINGIZ" || !cleanAdminId || cleanAdminId === "ADMIN_TELEGRAM_ID_RAQAMI") {
+                    statusBox.classList.add("sync-warn");
+                    statusBox.innerHTML = '<span>' + curT.syncWarn + '</span>';
+                    return;
+                }
+
+                const styledHtmlMessage = buildStyledTelegramMessage({
+                    attemptId: attemptId,
+                    fullName: fullName,
+                    phone: candidate.phone,
+                    lang: currentLang,
+                    percent: percent,
+                    correctTotal: correctTotal,
+                    wrongTotal: wrongTotal,
+                    total: activeQs.length,
+                    wrongItems: wrongItems,
+                    timestamp: timestamp
+                });
+
+                try {
+                    const resp = await fetch("https://api.telegram.org/bot" + encodeURIComponent(cleanToken) + "/sendMessage", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            chat_id: cleanAdminId,
+                            text: styledHtmlMessage,
+                            parse_mode: "HTML",
+                            disable_web_page_preview: true
+                        })
+                    });
+                    const data = await resp.json();
+                    if (!resp.ok || !data.ok) {
+                        throw new Error((data && data.description) || "Telegram API error");
+                    }
+                    statusBox.classList.add("sync-ok");
+                    statusBox.innerHTML = '<span>✓ ' + curT.syncOk + ' (ID: <b>' + attemptId + '</b>)</span>';
+                } catch (e) {
+                    statusBox.classList.add("sync-err");
+                    statusBox.innerHTML = '<span>✕ ' + curT.syncErr + '</span>';
+                }
+            };
+
+            function animateScore(targetPct) {
+                const pctEl = document.getElementById("res-pct");
+                const circle = document.getElementById("gauge-circle");
+                const radius = 74;
+                const circumference = 2 * Math.PI * radius;
+                circle.style.strokeDasharray = circumference;
+                circle.style.strokeDashoffset = circumference;
+
+                const duration = 1100;
+                const start = performance.now();
+
+                function frame(now) {
+                    const p = Math.min((now - start) / duration, 1);
+                    const eased = 1 - Math.pow(1 - p, 3);
+                    pctEl.textContent = Math.round(eased * targetPct) + "%";
+                    circle.style.strokeDashoffset = circumference - (eased * targetPct / 100) * circumference;
+                    if (p < 1) requestAnimationFrame(frame);
+                }
+                requestAnimationFrame(frame);
+            }
+
+            window.restartQuiz = function() {
+                curQ = 0;
+                answers = new Array(getActiveQuestions().length).fill(null);
+                isLockingStep = false;
+                isSubmitting = false;
+                switchScreen("screen-quiz");
+                renderQuestion();
+            };
+
+            window.exitQuiz = function() {
+                curQ = 0;
+                answers = new Array(getActiveQuestions().length).fill(null);
+                isLockingStep = false;
+                isSubmitting = false;
+                const modeLabel = document.getElementById("topbar-mode");
+                if (modeLabel) modeLabel.textContent = "20 SAVOL • TEXNIK ATTESTATSIYA";
+                switchScreen("screen-intro");
+            };
+        })();
+    </script>
+</body>
+</html>
